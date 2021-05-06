@@ -9,15 +9,23 @@ from sqlalchemy.orm import scoped_session, sessionmaker
 from helpers import login_required, create_ingredient_json, download_image
 import spoonacular
 import json
+from dotenv import load_dotenv
+
+
+# Load enviroment variables from dotenv file
+dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
+if os.path.exists(dotenv_path):
+    load_dotenv(dotenv_path)
 
 
 # Configure database
-engine = create_engine("postgres://kiommsutykfchx:e539f088927d094a7bc4c542fb7c0f7b9a1598046145ee8755dcafd523be97d1@ec2-54-217-234-157.eu-west-1.compute.amazonaws.com:5432/dfpkb416sr6slt")
+engine = create_engine(os.getenv("POSTGRES"))
 db = scoped_session(sessionmaker(bind=engine)) 
 
 
 # Configure application
 app = Flask(__name__)
+app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 
 # Ensure templates are auto-reloaded
 app.config["TEMPLATES_AUTO_RELOAD"] = True
@@ -39,7 +47,7 @@ app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
 # Connect to spoonacular Api
-api= spoonacular.API(api_key="9297513d3d2e4de6bb23c5a3e682e9de")
+api= spoonacular.API(api_key=os.getenv("SPOON_API"))
 
 # Make global var for most of functions
 ingredients = db.execute("SELECT ing_name, ing_id FROM ingredients ORDER BY ing_name").fetchall()

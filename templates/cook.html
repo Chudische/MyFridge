@@ -1,0 +1,107 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Cooking
+{% endblock %}
+
+
+{% block main %}
+<!-- Modal_2 -->
+<div class="modal fade" id="showrecipeModal" tabindex="-1" role="dialog" aria-labelledby="showrecipeModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h5 class="modal-title" id="showrecipeModalTitle"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+        <div class="modal-body">
+            <div class="conteiner">
+                <div class="row justify-content-md-center">
+                    <div class="col-md-6">
+                        <div class="recipe-img"><img class="recipe-modal-img" src="https://spoonacular.com/recipeImages/" alt="img"></div>
+                    </div>
+                </div>
+                <div class="row ">
+                    <div class="col-md-12">
+                        <ol class="recipe-steps">
+
+                        </ol>
+                    </div>                
+                </div>
+            </div>
+            <input class="modal-hidden" type="hidden" id="" value="">
+                
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-success button-add-fav" data-dismiss="modal">Add to favorite</button> 
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>          
+        </div>
+    </div>
+    </div>
+</div>
+
+    <div class="container recipe-wraper">
+        <div class="row">
+            {% if max_used %}
+            <div class="col-md-6">                           
+                    <button id="max-used" class="btn btn-success" disabled>Maximize used ingredients</button>                
+            </div>
+            <div class="col-md-6">                
+                    <a href="/cook" id="min-unused" class="btn btn-success active" role="button" aria-pressed="true"> Minimize unused ingredients</a>               
+            </div>
+            {% else %}
+            <div class="col-md-6">                                 
+                    <a href="/cook?ranking=True" id="max-used" class="btn btn-success active" role="button" aria-pressed="true">Maximize used ingredients</a>                
+            </div>
+            <div class="col-md-6">                 
+                    <button id="min-unused" class="btn btn-success" disabled>Minimize unused ingredients</button>                
+            </div> 
+            {% endif %}       
+        </div>
+
+    </div>
+    {% for recipe in recipes %}
+    {% if loop.index > 5 %}    
+    <div class="container recipe-wraper hidden-recipe">
+    {% else %}
+    <div class="container recipe-wraper">
+    {% endif %}   
+        <div class="row" id="{{ recipe.id }}">
+            
+            <div class="col-lg-2 col-md-4 col-sm-6">
+                
+                <img class="recipe-image"src="{{ recipe.image }}" alt="img">
+                               
+            </div>
+            <div class="col-lg-10 col-md-8 col-sm-6 recipe-description">
+                <h4>{{ recipe.title }}</h4>
+                <span>Used ingredients:</span>   
+                <ul>                       
+                    {% for ing in recipe.usedIngredients %}
+                    <li> <a class="usedIng" id="{{ ing.id }}" href="#">{{ ing.name }}</a></li>
+                    {% endfor %}
+                </ul>
+                <span>Need to buy:</span>
+               
+                <ul>
+                     {% for ing in recipe.missedIngredients %}
+                    <li><a class="unusedIng" id="{{ ing.id }}" href="#">{{ ing.name }}</a></li>
+                    {% endfor %}
+                </ul>
+                <div class="row">                    
+                        <button id="{{ recipe.id }}" class="btn btn-success ml-auto button-recipe ">recipe details</button>                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+    {% endfor %}
+    <div class="container">
+        <div class="row">
+        <button id="more-button" class="btn btn-success ml-auto more-button">More recipes</button>
+        </div>
+    </div>
+{% endblock %}

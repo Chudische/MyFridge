@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+    <head>
+
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- documentation at http://getbootstrap.com/docs/4.1/, alternative themes at https://bootswatch.com/ -->
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- https://favicon.io/emoji-favicons/money-mouth-face/ -->
+        <link href="/static/favicon.ico" rel="icon">
+
+        <link href="/static/styles.css" rel="stylesheet">
+
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <script src="./static/script.js"></script>
+
+        <title>CS50 MyFrige: {% block title %}{% endblock %}</title>
+
+    </head>
+
+    <body>
+
+        <nav class="navbar navbar-expand-md navbar-light bg-light border">
+            <a class="navbar-brand" href="/"> <div class="logo"></div> <span class="logo-text">MyFridge</span></a>
+            <button aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#navbar" data-toggle="collapse" type="button">
+                <span class="navbar-toggler-icon"></span><span>MyFridge</span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbar">
+                {% if session.user_id %}
+                    <ul class="navbar-nav mr-auto mt-2">                        
+                        <li class="nav-item {{ 'active' if request.path == '/cook'}}"><a class="nav-link" href="/cook">Cooking</a></li>
+                        <li class="nav-item {{ 'active' if request.path == '/buy'}}"><a class="nav-link" href="/buy">Shopping list</a></li>
+                        <li class="nav-item {{ 'active' if request.path == '/favorite'}}"><a class="nav-link " href="/favorite">Favorite recipes</a></li>
+                    </ul>
+                    <ul class="navbar-nav ml-auto mt-2">
+                        <li class="nav-item drop-main">
+                            <div class="dropdown">
+                                <a class="btn dropdown-toggle" style="color:gray;" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Account
+                                </a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <a class="dropdown-item" href="/chengepass">Chenge password</a>
+                            </div>
+                            </div>
+                        </li>
+                        <li class="nav-item"><a class="nav-link" href="/logout">Log Out</a></li>
+                    </ul>
+                {% else %}
+                    <ul class="navbar-nav ml-auto mt-2">
+                        <li class="nav-item"><a class="nav-link" href="/register">Register</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/login">Log In</a></li>
+                    </ul>
+                {% endif %}
+            </div>
+        </nav>
+
+        {% if get_flashed_messages() %}
+            <header>
+                <div class="alert alert-primary border text-center" role="alert">
+                    {{ get_flashed_messages() | join(" ") }}
+                </div>
+            </header>
+        {% endif %}
+            <div class="alert border text-center alert-fixed" role="alert"></div>
+        <main class="container p-5">
+            <!-- Modal -->
+            <div class="modal fade" id="addIngredientModal" tabindex="-1" role="dialog" aria-labelledby="addIngredientModalTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="addIngredientModalTitle">Add ingredient</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="/{{ path }}" id="modalForm" method="POST">
+                        <div class="d-flex justify-content-center">
+                            <div class="img-wraper">
+                            <img class="img-modal" src="https://spoonacular.com/cdn/ingredients_100x100/" alt="img">
+                            </div>
+                        </div>
+                            <div class="form-group">                                                      
+                                <input type="text" class="form-control" name="inputIngredient" list="ingredients" placeholder="Enter ingredient">                    
+                                <datalist id="ingredients">
+                                {% for ing in ingredients %}
+                                    
+                                    <option id="{{ ing[1] }}" value="{{ ing[0] }}">
+                                    
+                                {% endfor %}                       
+                                </datalist>                      
+                            </div>
+                            
+                            <div class="form-group">
+                                <input type="number" name="number" id="inputNumber" placeholder="Enter the quantity" min="0" max="1000" >                  
+                                
+                            </div>              
+                            <div class="form-group">                  
+                                
+                                <select name="select1" class="form-control" id="selectUnits">
+                                <option value="default" disabled selected>Select</option>                                     
+                                </select>                                                           
+                            </div>  
+                                                         
+                                <input type="hidden" name="ingId" id="hiddenInput" value="">
+                        
+                            <button type="submit" class="btn btn-primary btn-block" id="submit-button">Add</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>          
+                    </div>
+                </div>
+                </div>
+            </div>
+    
+            {% block main %}{% endblock %}
+        </main>
+
+        <footer class="small text-center text-muted">
+            Data provided for free by <a href="https://iextrading.com/developer">IEX</a>. View <a href="https://iextrading.com/api-exhibit-a/">IEX’s Terms of Use</a>.
+        </footer>
+
+    </body>
+
+</html>

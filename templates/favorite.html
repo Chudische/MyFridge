@@ -1,0 +1,59 @@
+{% extends "layout.html" %}
+
+{% block title %}
+favorite recipes
+{% endblock %}
+
+{% block main %}
+    {% for recipe in recipe_list %}
+        <div class="delete {{recipe.id}}">
+        <div class="btn-group d-flex" role="group">
+        <a class="btn btn-outline-secondary btn-block show-recipe" href="#" id={{recipe.id}}>{{recipe.title}}</a>
+        <!-- <div class="recipe-description-close"> -->
+            <button class="btn btn-outline-primary btn-sm close-button" type="button" id="{{recipe.id}}">x</button>
+        <!-- </div> -->
+        </div>
+        <div class="conteiner hidden-recipe {{recipe.id}}" id={{recipe.id}}>
+               
+            <div class="row mt-3">
+                <div class="col-md-4 col-sm-6">                     
+                    <img src="{{ recipe.image }}" alt="img">
+                </div>
+                <div class="col-md-4 col-sm-6" id="recipe-equipment" >
+                    <h5>recipe equipment:</h5>
+                    <ul class="left">
+                        {% set eq_list = [] %}
+                        {% for instruction in recipe.analyzedInstructions %}
+                            {% for step in instruction.steps %}
+                                {% for equipment in step.equipment %}
+                                    {% if equipment.name not in eq_list %}                                  
+                                        {{ eq_list.append(equipment.name) or "" }}                              
+                                    {% endif %}    
+                                {% endfor %}                            
+                            {% endfor %}                     
+                        {% endfor %}
+                        {% for item in eq_list %}
+                            <li>{{ item }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="col-md-4 col-sm-6 recipe-description" id="recipe-ingredients" >
+                        
+                    <h5>recipe ingredients:</h5>
+                    <ul class="left">
+                        {% for ingredient in recipe.extendedIngredients %}                            
+                            <li><a class="unusedIng" href="#" id="{{ingredient.id}}">{{ingredient.name}}</a></li>                            
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12" id="recipe-instructions">
+                    <h5>recipe instructions:</h5>
+                    <p class="left">{{recipe.instructions}}</p>                     
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+{% endblock %}

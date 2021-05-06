@@ -1,0 +1,22 @@
+{% extends "layout.html"  %}
+
+{% block title %}
+Need to buy
+{% endblock %}
+
+{% block main %}
+<div class="content-flex">    
+        {% for ingredient in ingredient_list %}
+            <div class="content-item d-flex flex-column {{ingredient.id}}">
+              <div class="content-item-close"><button class="btn btn-outline-primary btn-sm close-button" type="button" id="{{ingredient.id}}">x</button></div>
+              <div class="content-item-name" id={{ingredient.id}} >{{ ingredient.name }}</div>
+              <div class="content-item-img"><img src="/static/img/ingredients/{{ ingredient.image }}" alt="img"></div>
+              <button class="btn btn-success btn-block mt-auto buy-button" type="button" id="{{ingredient.id}}">Bought</button>            
+            </div>
+        {% endfor %}
+      
+        <div class="content-item">
+            <button type="button" id="newBuyItem" class="btn btn-outline-primary btn-lg btn-block h-100" data-toggle="modal" data-target="#addIngredientModal">Add new</button> 
+        </div>
+</div>
+{% endblock %}

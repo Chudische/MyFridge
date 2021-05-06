@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Registration
+{% endblock %}
+
+{% block main %}
+    <div class="alert alert-danger" role="alert" id="Error" style="display: none;">Current "Username" already registred json</div>
+    <form action="/register" id="register" method="post">
+        <div class="form-group">
+            <input autocomplete="off" autofocus class="form-control" id="name" name="username" placeholder="Username" type="text" value="">
+        </div>
+        <div class="form-group">
+            <input class="form-control" name="password" placeholder="Password" type="password">
+        </div>
+        <div class="form-group">
+            <input class="form-control" name="confirmation" placeholder="Confirm password" type="password">
+        </div>
+        <button class="btn btn-primary" type="submit">Register</button>
+    </form>
+    
+{% endblock %}

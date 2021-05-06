@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    What's in
+{% endblock %}
+
+{% block main %}
+
+
+<div class="content-flex">
+  {% for ingredient in ingredient_list %}
+    <div class="content-item d-flex flex-column">
+        <div class="content-item-close"><button class="btn btn-outline-primary btn-sm close-button" type="button" id="{{ingredient.id}}">x</button></div>
+        <div class="content-item-name">{{ ingredient.name }}</div>
+        <div class="content-item-img"><img src="/static/img/ingredients/{{ ingredient.image }}" alt="img"></div>
+        <div class="input-group mt-auto">
+            <input type="number" class="form-control" id="{{ ingredient.id }}" placeholder="{{ingredient.quantity}} {{ingredient.unit}}" aria-label="itemNumber" min="0" max="1000" aria-describedby="button-addon">
+            <div class="input-group-append">
+              <button class="btn btn-success btn-sm chenge-button" type="button" id="{{ingredient.id}}">Edit</button>
+            </div>
+          </div>
+      </div>
+    {% endfor %}
+
+    <div class="content-item">
+      <button type="button" id="newItem" class="btn btn-outline-primary btn-lg btn-block h-100" data-toggle="modal" data-target="#addIngredientModal">Add new</button> </div>
+    </div>
+
+  
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Chenge password
+{% endblock %}
+
+{% block main %}
+
+    <form action="/changepass" id="change" method="post">
+        <div class="form-group">
+            <input autocomplete="off" autofocus class="form-control" id="name" name="oldpassword" placeholder="Old password" type="password" value="">
+        </div>
+        <div class="form-group">
+            <input class="form-control" name="password" placeholder="New password" type="password">
+        </div>
+        <div class="form-group">
+            <input class="form-control" name="confirmation" placeholder="Confirm password" type="password">
+        </div>
+        <button class="btn btn-primary" type="submit">Chenge</button>
+    </form>
+
+{% endblock %}

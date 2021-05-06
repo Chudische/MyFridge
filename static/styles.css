@@ -1,0 +1,173 @@
+nav .navbar-brand
+{
+    /* size for brand */
+    font-size: xx-large;
+}
+
+/* colors for brand */
+nav .navbar-brand .logo
+{
+    background-image: url(./graphic-3968480_640.png);
+    display: inline-block;
+    background-size: contain;
+    width: 30px;
+    height: 50px;
+    position: absolute;
+}
+nav .navbar-brand .logo-text
+{
+    margin-left: 40px;
+}
+
+main .form-control
+{
+    /* center form controls */
+    display: inline-block;
+
+    /* override Bootstrap's 100% width for form controls */
+    width: auto;
+}
+
+main
+{
+    /* scroll horizontally as needed */
+    overflow-x: auto;
+
+    /* center contents */
+    text-align: center;
+}
+
+main img
+{
+    /* constrain images on small screens */
+    max-width: 100%;
+}
+
+.dropdown a {
+    padding: 0;
+    margin-top: 7px;
+}
+
+.dropdown-item a {
+    display: inline-block;
+}
+
+.content-flex{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.content-item{
+    margin: 10px auto;
+    padding: 5px;
+    border: 1px solid #6c757d;
+    border-radius: 5px;
+    width: 180px;
+    height: 200px;
+    position: relative;   
+}
+.content-item:hover{
+    -webkit-box-shadow: 0 4px 12px 0 rgba(55, 161, 255, 0.26), 0 6px 15px 0 rgba(121, 155, 254, 0.25);
+    box-shadow: 0 4px 12px 0 rgba(55, 161, 255, 0.26), 0 6px 15px 0 rgba(121, 155, 254, 0.25); 
+}
+.content-item-img {
+    display: block;
+    height: 50px;
+}
+
+
+.content-item-close{
+    position: absolute;
+    top: 3px;
+    right: 5px;    
+}
+
+
+.content-item-name {
+    margin-right: 20px;
+}
+
+.form-group input, select {
+    width: 250px;
+    margin: 10px auto;
+    display: block;
+}
+
+.img-wraper {
+    width: 100px;
+    height: 100px;
+}
+
+.recipe-steps li {
+    text-align: left;
+}
+.recipe-wraper{
+    display: block;
+    border: 1px solid  #6c757d;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 5px;
+}
+.hidden-recipe{
+    display: none;
+    position: relative;
+}
+
+.recipe-description {
+    text-align: left;
+    position: relative;
+}
+
+.button-recipe {
+    position: relative;
+    bottom: 5px;
+    right: 5px;
+}
+
+.recipe-description a {
+    color: grey;
+}
+
+.recipe-description a:hover {
+    color: green;
+    transition: 1s;
+}
+
+a.btn-outline-secondary {
+    text-align: left;
+
+}
+
+a.btn-outline-secondary:focus {
+    background-color: green;
+    color: #fff;    
+    outline: none !important;
+    box-shadow: none;  
+}
+
+.left {
+    text-align: left;
+}
+
+.alert-fixed {
+    display: none;
+    position: fixed;
+    top: 10px;
+    left: 0;
+    right: 0;
+    margin: 5px auto;
+}
+
+@media screen and (max-width: 767px) {
+    
+}
+
+@media screen and (max-width: 456px) {
+    .navbar-brand .logo-text {
+        color: #FFF;
+        font-size: 10px;
+    }
+}
+
